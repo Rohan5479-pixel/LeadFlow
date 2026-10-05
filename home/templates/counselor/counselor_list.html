@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-title-row">
+        <h3>Counselors</h3>
+        <a href="{% url 'counselor_add' %}" class="outline-btn">+ Add Counselor</a>
+    </div>
+
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for counselor in counselors %}
+            <tr>
+                <td>{{ counselor.counselor_id }}</td>
+                <td>{{ counselor.name }}</td>
+                <td>{{ counselor.email_id }}</td>
+                <td>{{ counselor.contact }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center">No counselors found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="container mt-4">
+
+
+<div class="card shadow">
+
+
+
+<div class="card-header bg-warning">
+
+
+<h3>
+Edit EMI Installment
+</h3>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+<div class="mb-3">
+
+
+<label>
+Installment Amount
+</label>
+
+
+<input 
+type="number"
+name="amount"
+class="form-control"
+value="{{ installment.due_amount }}">
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+
+<label>
+Due Date
+</label>
+
+
+<input 
+type="date"
+name="due_date"
+class="form-control"
+value="{{ installment.due_date|date:'Y-m-d' }}">
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+
+<label>
+Status
+</label>
+
+
+<select 
+name="status"
+class="form-control">
+
+
+<option value="Pending"
+{% if installment.status == "Pending" %}
+selected
+{% endif %}>
+Pending
+</option>
+
+
+
+<option value="Partial"
+{% if installment.status == "Partial" %}
+selected
+{% endif %}>
+Partial
+</option>
+
+
+
+
+<option value="Paid"
+{% if installment.status == "Paid" %}
+selected
+{% endif %}>
+Paid
+</option>
+
+
+
+</select>
+
+
+</div>
+
+
+
+
+<button 
+type="submit"
+class="btn btn-warning">
+
+Update EMI
+
+</button>
+
+
+
+
+<a href="{% url 'fee_detail' installment.fee.fee_id %}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

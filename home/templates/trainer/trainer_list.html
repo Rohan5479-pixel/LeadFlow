@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Trainers
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="card-title-row">
+        <h3>Trainer Management</h3>
+
+        <a href="{% url 'trainer_add' %}" class="btn btn-primary">
+            + Add Trainer
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Trainer ID</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for trainer in trainers %}
+                <tr>
+                    <td>{{ trainer.trainer_id }}</td>
+                    <td>{{ trainer.name }}</td>
+                    <td>{{ trainer.course }}</td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">
+                        No trainers found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

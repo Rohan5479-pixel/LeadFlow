@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="container mt-4">
+
+
+<div class="card shadow">
+
+
+<div class="card-header bg-success text-white">
+
+<h3>
+Pay Installment
+</h3>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<h5>
+Student :
+{{ installment.fee.student.name }}
+</h5>
+
+
+<p>
+Installment No :
+<strong>
+{{ installment.installment_number }}
+</strong>
+</p>
+
+
+<p>
+Installment Amount :
+<strong>
+₹{{ installment.installment_amount }}
+</strong>
+</p>
+
+
+<p>
+Remaining Amount :
+<strong>
+₹{{ installment.due_amount }}
+</strong>
+</p>
+
+
+
+<hr>
+
+
+
+<form method="POST">
+
+{% csrf_token %}
+
+
+
+<div class="mb-3">
+
+
+<label>
+Enter Payment Amount
+</label>
+
+
+<input 
+type="number"
+name="paid_amount"
+class="form-control"
+required
+max="{{ installment.due_amount }}">
+
+
+</div>
+
+
+
+
+<button 
+type="submit"
+class="btn btn-success">
+
+Pay Now
+
+</button>
+
+
+
+<a href="{% url 'fee_detail' installment.fee.fee_id %}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

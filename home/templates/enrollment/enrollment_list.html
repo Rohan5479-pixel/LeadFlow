@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Enrollment List</h3>
+
+        <a href="{% url 'enrollment_add' %}" class="btn btn-primary">
+            + Enroll Student
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover shadow">
+
+        <thead class="table-dark">
+
+        <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Batch</th>
+            <th>Enrollment Date</th>
+            <th>Status</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for enrollment in enrollments %}
+
+        <tr>
+
+            <td>{{ enrollment.enrollment_id }}</td>
+
+            <td>{{ enrollment.student.name }}</td>
+
+            <td>{{ enrollment.student.course.course_name }}</td>
+
+            <td>{{ enrollment.batch.batch_name }}</td>
+
+            <td>{{ enrollment.enrollment_date }}</td>
+
+            <td>
+
+                {% if enrollment.status == "Enrolled" %}
+
+                    <span class="badge bg-success">
+                        {{ enrollment.status }}
+                    </span>
+
+                {% elif enrollment.status == "Completed" %}
+
+                    <span class="badge bg-primary">
+                        {{ enrollment.status }}
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-danger">
+                        {{ enrollment.status }}
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="6" class="text-center">
+                No Enrollments Found
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

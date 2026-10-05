@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Add Payment
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="card-title-row">
+        <h3>Add Payment</h3>
+    </div>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fee</label>
+                {{ form.fee }}
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Amount</label>
+                {{ form.amount }}
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Payment Mode</label>
+                {{ form.payment_mode }}
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Transaction Reference</label>
+                {{ form.transaction_ref }}
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Received By</label>
+                {{ form.received_by }}
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Remark</label>
+                {{ form.remark }}
+            </div>
+
+        </div>
+
+        <div class="mt-3">
+
+            <button type="submit" class="btn btn-success">
+                Save Payment
+            </button>
+
+            <a href="{% url 'payment_history_list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

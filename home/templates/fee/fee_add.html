@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="content-card">
+
+<h3>Add Fee</h3>
+
+
+<form method="POST">
+
+{% csrf_token %}
+
+
+
+<div class="mb-3">
+
+<label>Student</label>
+
+{{ form.student }}
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Course</label>
+
+{{ form.course }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>Total Fee Amount</label>
+
+{{ form.total_fee_amount }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>Discount</label>
+
+{{ form.discount }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>Registration Fee</label>
+
+{{ form.registration_fee }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>Payment Type</label>
+
+{{ form.payment_type }}
+
+</div>
+
+
+
+
+<!-- ==========================
+        EMI SECTION
+========================== -->
+
+
+<div id="emi_section" style="display:none;">
+
+
+<hr>
+
+
+<h4>
+EMI Details
+</h4>
+
+
+
+<div class="mb-3">
+
+<label>
+Number of Installments
+</label>
+
+{{ form.number_of_installments }}
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>
+Each Installment Amount
+</label>
+
+
+<input
+type="number"
+id="installment_amount"
+class="form-control"
+readonly>
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>
+First Installment Due Date
+</label>
+
+
+<input
+type="date"
+name="first_due_date"
+class="form-control">
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<button type="submit" class="btn btn-primary">
+
+Save Fee
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+let paymentType =
+document.getElementById(
+"id_payment_type"
+);
+
+
+
+let emiSection =
+document.getElementById(
+"emi_section"
+);
+
+
+
+let totalFee =
+document.getElementById(
+"id_total_fee_amount"
+);
+
+
+
+let discount =
+document.getElementById(
+"id_discount"
+);
+
+
+
+let registration =
+document.getElementById(
+"id_registration_fee"
+);
+
+
+
+let installmentCount =
+document.getElementById(
+"id_number_of_installments"
+);
+
+
+
+let installmentAmount =
+document.getElementById(
+"installment_amount"
+);
+
+
+
+
+
+function calculateInstallment(){
+
+
+let fee =
+parseFloat(totalFee.value) || 0;
+
+
+
+let disc =
+parseFloat(discount.value) || 0;
+
+
+
+let reg =
+parseFloat(registration.value) || 0;
+
+
+
+let count =
+parseInt(installmentCount.value) || 0;
+
+
+
+let payable =
+fee - disc;
+
+
+
+if(count > 0){
+
+    installmentAmount.value =
+    (payable / count).toFixed(2);
+
+}
+else{
+
+    installmentAmount.value="";
+
+}
+
+
+
+}
+
+
+
+
+
+function showEMI(){
+
+
+if(paymentType.value === "EMI"){
+
+
+    emiSection.style.display="block";
+
+
+}
+else{
+
+
+    emiSection.style.display="none";
+
+
+    installmentAmount.value="";
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+paymentType.addEventListener(
+"change",
+showEMI
+);
+
+
+
+totalFee.addEventListener(
+"input",
+calculateInstallment
+);
+
+
+
+discount.addEventListener(
+"input",
+calculateInstallment
+);
+
+
+
+registration.addEventListener(
+"input",
+calculateInstallment
+);
+
+
+
+installmentCount.addEventListener(
+"input",
+calculateInstallment
+);
+
+
+
+
+showEMI();
+
+
+
+});
+
+
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,358 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}LeadFlow Management System{% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                L
+            </div>
+
+            <div>
+                <h2>
+                    Lead<span>Flow</span>
+                </h2>
+
+                <p>
+                    Management System
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- MENU TITLE -->
+
+        <p class="menu-label">
+            MAIN MENU
+        </p>
+
+
+        <!-- =================================================
+             MENU
+        ================================================== -->
+
+        <nav class="menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="{% url 'dashboard' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <!-- COURSES -->
+
+            <a href="{% url 'course_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'course_list' or request.resolver_match.url_name == 'course_add' %}active{% endif %}">
+
+                <span class="menu-icon">📘</span>
+                <span>Courses</span>
+
+            </a>
+
+
+            <!-- COUNSELORS -->
+
+            <a href="{% url 'counselor_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'counselor_list' or request.resolver_match.url_name == 'counselor_add' %}active{% endif %}">
+
+                <span class="menu-icon">👨‍💼</span>
+                <span>Counselors</span>
+
+            </a>
+
+
+            <!-- LEADS -->
+
+            <a href="{% url 'lead_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'lead_list' or request.resolver_match.url_name == 'lead_add' or request.resolver_match.url_name == 'lead_edit' %}active{% endif %}">
+
+                <span class="menu-icon">📋</span>
+                <span>Leads</span>
+
+            </a>
+
+
+            <!-- =================================================
+                 TRAINERS
+            ================================================== -->
+
+            <a href="{% url 'trainer_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'trainer_list' or request.resolver_match.url_name == 'trainer_add' %}active{% endif %}">
+
+                <span class="menu-icon">👨‍🏫</span>
+                <span>Trainers</span>
+
+            </a>
+
+
+            <!-- =================================================
+                 BATCHES
+            ================================================== -->
+
+            <a href="{% url 'batch_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'batch_list' or request.resolver_match.url_name == 'batch_add' %}active{% endif %}">
+
+                <span class="menu-icon">🗂</span>
+                <span>Batches</span>
+
+            </a>
+
+
+            <!-- STUDENTS -->
+
+            <a href="{% url 'student_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'student_list' or request.resolver_match.url_name == 'student_add' %}active{% endif %}">
+
+                <span class="menu-icon">🎓</span>
+                <span>Students</span>
+
+            </a>
+
+
+            <!-- ENROLLMENT -->
+
+            <a href="{% url 'enrollment_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'enrollment_list' or request.resolver_match.url_name == 'enrollment_add' %}active{% endif %}">
+
+                <span class="menu-icon">📝</span>
+                <span>Enrollment</span>
+
+            </a>
+
+
+            <!-- ATTENDANCE -->
+
+            <a href="{% url 'attendance_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'attendance_list' or request.resolver_match.url_name == 'attendance_add' %}active{% endif %}">
+
+                <span class="menu-icon">📅</span>
+                <span>Attendance</span>
+
+            </a>
+
+
+            <!-- SUBJECTS -->
+
+            <a href="{% url 'subject_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'subject_list' or request.resolver_match.url_name == 'subject_add' %}active{% endif %}">
+
+                <span class="menu-icon">📚</span>
+                <span>Subjects</span>
+
+            </a>
+
+
+            <!-- CERTIFICATION -->
+
+            <a href="{% url 'certification_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'certification_list' or request.resolver_match.url_name == 'certification_add' %}active{% endif %}">
+
+                <span class="menu-icon">🏆</span>
+                <span>Certification</span>
+
+            </a>
+
+
+            <!-- FEES -->
+
+            <a href="{% url 'fee_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'fee_list' or request.resolver_match.url_name == 'fee_add' %}active{% endif %}">
+
+                <span class="menu-icon">💰</span>
+                <span>Fees</span>
+
+            </a>
+
+
+            <!-- PAYMENT HISTORY -->
+
+            <a href="{% url 'payment_history_list' %}"
+               class="menu-item {% if request.resolver_match.url_name == 'payment_history_list' or request.resolver_match.url_name == 'payment_add' %}active{% endif %}">
+
+                <span class="menu-icon">💳</span>
+                <span>Payment History</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- =====================================================
+             BOTTOM SECTION
+        ====================================================== -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- ADMIN -->
+
+            <a href="/admin/"
+               class="menu-item">
+
+                <span class="menu-icon">⚙️</span>
+                <span>Admin Panel</span>
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a href="{% url 'logout' %}"
+               class="menu-item logout-item">
+
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+
+            <hr>
+
+
+            <!-- CURRENT USER -->
+
+            <div class="sidebar-user">
+
+                <div class="user-circle">
+
+                    {{ request.user.first_name|default:"A"|slice:":1"|upper }}
+
+                </div>
+
+
+                <div class="user-info">
+
+                    <strong>
+                        {{ request.user.first_name|default:"Admin" }}
+                    </strong>
+
+                    <small>
+                        System User
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h3>
+                    {% block page_title %}
+                        LeadFlow Dashboard
+                    {% endblock %}
+                </h3>
+
+                <p>
+                    Manage your training institute in one place
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+
+                <div class="today-date">
+
+                    Today:
+                    {% now "d M Y" %}
+
+                </div>
+
+
+                <div class="top-avatar">
+
+                    {{ request.user.first_name|default:"A"|slice:":1"|upper }}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="content-area">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+
+</html>

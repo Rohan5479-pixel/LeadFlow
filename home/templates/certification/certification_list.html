@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Certification
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="card-title-row">
+
+        <h3>Certification List</h3>
+
+        <a href="{% url 'certification_add' %}" class="outline-btn">
+            + Add Certification
+        </a>
+
+    </div>
+
+<table class="table custom-table">
+
+    <thead>
+        <tr>
+            <th>Certificate ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Certificate No.</th>
+            <th>Issue Date</th>
+            <th>Status</th>
+            <th>Released By</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for cert in certifications %}
+
+    <tr>
+
+        <td>{{ cert.certificate_id }}</td>
+        <td>{{ cert.student }}</td>
+        <td>{{ cert.course }}</td>
+        <td>{{ cert.certification_number }}</td>
+        <td>{{ cert.issue_date }}</td>
+        <td>{{ cert.status }}</td>
+        <td>{{ cert.released_by }}</td>
+
+        <td>
+            <a href="{% url 'certificate_view' cert.certificate_id %}"
+               class="btn btn-primary">
+                View Certificate
+            </a>
+        </td>
+
+    </tr>
+
+    {% empty %}
+
+    <tr>
+        <td colspan="8" class="text-center">
+            No Certifications Found
+        </td>
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-title-row">
+        <h3>Courses</h3>
+        <a href="{% url 'course_add' %}" class="outline-btn">+ Add Course</a>
+    </div>
+
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.course_id }}</td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.course_description }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center">No courses found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

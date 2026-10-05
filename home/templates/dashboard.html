@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content-card mb-4">
+    <h1>Welcome back, {{ request.user.first_name }}!</h1>
+    <p class="text-muted">LeadFlow Management System Dashboard</p>
+</div>
+
+<!-- First Row -->
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Total Courses</h6>
+            <h2>{{ course_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Total Counselors</h6>
+            <h2>{{ counselor_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Total Leads</h6>
+            <h2>{{ lead_count }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- Second Row -->
+<div class="row g-3 mt-2">
+
+    <div class="col-md-6">
+        <div class="content-card text-center">
+            <h6>Total Trainers</h6>
+            <h2>{{ trainer_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="content-card text-center">
+            <h6>Total Batches</h6>
+            <h2>{{ batch_count }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- Collection Section -->
+<div class="row g-3 mt-4">
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Daily Collection</h6>
+            <h2>₹ {{ daily_collection }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Monthly Collection</h6>
+            <h2>₹ {{ monthly_collection }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="content-card text-center">
+            <h6>Quarterly Collection</h6>
+            <h2>₹ {{ quarterly_collection }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- Enrollment Section -->
+<div class="row g-3 mt-2">
+
+    <div class="col-md-6">
+        <div class="content-card text-center">
+            <h6>Monthly Enrollment</h6>
+            <h2>{{ monthly_enrollment }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="content-card text-center">
+            <h6>Quarterly Enrollment</h6>
+            <h2>{{ quarterly_enrollment }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- Recent Leads -->
+<div class="content-card mt-4">
+
+    <h4 class="mb-3">Recent Leads</h4>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Lead ID</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Contact</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for lead in recent_leads %}
+
+            <tr>
+                <td>{{ lead.lead_id }}</td>
+                <td>{{ lead.name }}</td>
+                <td>{{ lead.course }}</td>
+                <td>{{ lead.contact_number }}</td>
+                <td>{{ lead.status }}</td>
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="5" class="text-center">
+                    No Leads Available
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

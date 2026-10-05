@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-title-row">
+        <h3>Leads</h3>
+        <a href="{% url 'lead_add' %}" class="outline-btn">+ Add Lead</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Lead ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Course</th>
+                    <th>Counselor</th>
+                    <th>Date & Time</th>
+                    <th>Day</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td>{{ lead.lead_id }}</td>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.email_id }}</td>
+                    <td>{{ lead.contact_number }}</td>
+                    <td>{{ lead.course }}</td>
+                    <td>{{ lead.counselor }}</td>
+                    <td>{{ lead.created_at }}</td>
+                    <td>{{ lead.day }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>
+                        <a href="{% url 'lead_edit' lead.lead_id %}" class="btn btn-sm btn-primary">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="10" class="text-center">No leads found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

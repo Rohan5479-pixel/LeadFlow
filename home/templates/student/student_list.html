@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="card-title-row">
+
+        <h3>
+            Student List
+        </h3>
+
+        <a href="{% url 'student_add' %}" class="btn btn-primary">
+            Add Student
+        </a>
+
+    </div>
+
+    <table class="table custom-table">
+
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Lead</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Course</th>
+                <th>Batch</th>
+                <th>Admission Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for student in students %}
+
+            <tr>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.lead }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email_id }}</td>
+                <td>{{ student.contact_number }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.batch }}</td>
+                <td>{{ student.admission_date }}</td>
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="8" class="text-center">
+                    No Students Found
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

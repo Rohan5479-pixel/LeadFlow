@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-title-row">
+        <h3>Batches</h3>
+        <a href="{% url 'batch_add' %}" class="outline-btn">+ Add Batch</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Batch ID</th>
+                    <th>Batch Name</th>
+                    <th>Type</th>
+                    <th>Trainer</th>
+                    <th>Course</th>
+                    <th>Start Date</th>
+                    <th>Timing</th>
+                    <th>Completion Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for batch in batches %}
+                <tr>
+                    <td>{{ batch.batch_id }}</td>
+                    <td>{{ batch.batch_name }}</td>
+                    <td>{{ batch.batch_type }}</td>
+                    <td>{{ batch.trainer }}</td>
+                    <td>{{ batch.course }}</td>
+                    <td>{{ batch.batch_start_date }}</td>
+                    <td>{{ batch.batch_timing }}</td>
+                    <td>{{ batch.batch_completion_date|default:"Not Added" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="text-center">No batches found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

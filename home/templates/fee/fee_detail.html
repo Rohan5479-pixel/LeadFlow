@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="container mt-4">
+
+
+<div class="card shadow">
+
+
+<div class="card-header bg-primary text-white">
+
+<h3>
+Fee Details
+</h3>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+
+<!-- ==========================
+     STUDENT FEE INFORMATION
+=========================== -->
+
+
+<h4 class="mb-3">
+Student Fee Information
+</h4>
+
+
+<table class="table table-bordered">
+
+
+<tr>
+<th>Student</th>
+<td>{{ fee.student.name }}</td>
+</tr>
+
+
+<tr>
+<th>Course</th>
+<td>{{ fee.course.course_name }}</td>
+</tr>
+
+
+<tr>
+<th>Total Course Fee</th>
+<td>₹{{ fee.total_fee_amount }}</td>
+</tr>
+
+
+<tr>
+<th>Discount</th>
+<td>₹{{ fee.discount }}</td>
+</tr>
+
+
+<tr>
+<th>Registration Fee</th>
+<td>₹{{ fee.registration_fee }}</td>
+</tr>
+
+
+<tr>
+<th>Net Payable Amount</th>
+<td>₹{{ fee.net_payable_amount }}</td>
+</tr>
+
+
+<tr>
+<th>Total Paid Amount</th>
+<td>₹{{ fee.amount_paid }}</td>
+</tr>
+
+
+<tr>
+<th>Remaining Due</th>
+<td>₹{{ fee.due_amount }}</td>
+</tr>
+
+
+<tr>
+<th>Payment Type</th>
+<td>{{ fee.payment_type }}</td>
+</tr>
+
+
+
+<tr>
+
+<th>
+Payment Status
+</th>
+
+<td>
+
+
+{% if fee.payment_status == "Paid" %}
+
+<span class="badge bg-success">
+Paid
+</span>
+
+
+{% elif fee.payment_status == "Partial" %}
+
+<span class="badge bg-warning">
+Partial
+</span>
+
+
+{% else %}
+
+<span class="badge bg-secondary">
+{{ fee.payment_status }}
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+Last Payment Date
+</th>
+
+<td>
+{{ fee.last_payment_date }}
+</td>
+
+</tr>
+
+
+</table>
+
+
+
+
+<hr>
+
+
+
+
+
+<!-- ==========================
+     PAYMENT HISTORY
+=========================== -->
+
+
+<h4 class="mb-3">
+Payment History
+</h4>
+
+
+
+<table class="table table-striped">
+
+
+<thead>
+
+<tr>
+
+<th>
+Date
+</th>
+
+<th>
+Amount
+</th>
+
+
+<th>
+Payment Mode
+</th>
+
+
+<th>
+Transaction Ref
+</th>
+
+
+<th>
+Received By
+</th>
+
+
+<th>
+Remark
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for payment in payments %}
+
+
+<tr>
+
+
+<td>
+{{ payment.payment_date }}
+</td>
+
+
+<td>
+₹{{ payment.amount }}
+</td>
+
+
+<td>
+{{ payment.payment_mode }}
+</td>
+
+
+<td>
+{{ payment.transaction_ref }}
+</td>
+
+
+<td>
+{{ payment.received_by }}
+</td>
+
+
+<td>
+{{ payment.remark }}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No Payment History Available
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+<hr>
+
+
+
+
+
+<!-- ==========================
+     EMI INSTALLMENT DETAILS
+=========================== -->
+
+
+<h4 class="mb-3">
+EMI Installment Details
+</h4>
+
+
+
+
+<table class="table table-bordered">
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Installment No
+</th>
+
+
+<th>
+Installment Amount
+</th>
+
+
+<th>
+Paid Amount
+</th>
+
+
+<th>
+Remaining Amount
+</th>
+
+
+<th>
+Due Date
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for installment in installments %}
+
+
+
+<tr>
+
+
+
+<td>
+
+Installment {{ installment.installment_number }}
+
+</td>
+
+
+
+
+<td>
+
+₹{{ installment.installment_amount }}
+
+</td>
+
+
+
+
+<td>
+
+₹{{ installment.paid_amount }}
+
+</td>
+
+
+
+
+<td>
+
+₹{{ installment.due_amount }}
+
+</td>
+
+
+
+
+<td>
+
+{{ installment.due_date }}
+
+</td>
+
+
+
+
+<td>
+
+
+
+{% if installment.status == "Paid" %}
+
+
+<span class="badge bg-success">
+
+Paid
+
+</span>
+
+
+
+{% elif installment.status == "Over Due" %}
+
+
+
+<span class="badge bg-danger">
+
+Over Due
+
+</span>
+
+
+
+{% elif installment.status == "Partial" %}
+
+
+
+<span class="badge bg-warning">
+
+Partial
+
+</span>
+
+
+
+{% else %}
+
+
+
+<span class="badge bg-secondary">
+
+Pending
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+
+<td>
+
+
+
+{% if installment.status != "Paid" %}
+
+
+
+<a href="{% url 'installment_pay' installment.installment_id %}"
+
+class="btn btn-sm btn-success">
+
+Pay
+
+</a>
+
+
+
+
+
+<a href="{% url 'installment_edit' installment.installment_id %}"
+
+class="btn btn-sm btn-warning">
+
+Edit EMI
+
+</a>
+
+
+
+
+{% else %}
+
+
+
+<span class="text-success">
+
+Completed
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+</tr>
+
+
+
+
+
+{% empty %}
+
+
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No EMI Installment Created
+
+</td>
+
+</tr>
+
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+
+
+
+<a href="{% url 'fee_list' %}"
+
+class="btn btn-secondary mt-3">
+
+Back
+
+</a>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

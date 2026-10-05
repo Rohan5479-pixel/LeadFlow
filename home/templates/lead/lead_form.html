@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-card">
+    <h3>Add / Edit Lead</h3>
+    <p class="text-muted">Date, time, and day are added automatically by the system.</p>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+            <div class="col-md-6 mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                <div class="text-danger">{{ field.errors }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Lead</button>
+        <a href="{% url 'lead_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

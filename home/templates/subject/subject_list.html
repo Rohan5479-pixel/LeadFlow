@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+Subject List
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-4">
+
+
+<h2>Subject List</h2>
+
+
+<a href="{% url 'subject_add' %}"
+class="btn btn-primary mb-3">
+
+Add Subject
+
+</a>
+
+
+<table class="table table-bordered">
+
+
+<tr>
+
+<th>ID</th>
+<th>Subject Name</th>
+<th>Course</th>
+<th>Trainer</th>
+
+</tr>
+
+
+{% for subject in subjects %}
+
+<tr>
+
+<td>{{subject.subject_id}}</td>
+
+<td>{{subject.subject_name}}</td>
+
+<td>{{subject.course}}</td>
+
+<td>{{subject.trainer}}</td>
+
+</tr>
+
+
+{% empty %}
+
+<tr>
+
+<td colspan="4">
+No Subject Available
+</td>
+
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+
+{% endblock %}
